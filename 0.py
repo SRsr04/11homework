@@ -1,5 +1,5 @@
 from collections import UserDict
-from datetime import datetime, timedelta
+from datetime import datetime
 import re
 
 class Field:
@@ -12,6 +12,25 @@ class Field:
 class Name(Field):
     pass
         
+class Birthday(Field):
+    
+    def __init__(self, value):
+        self._value = None
+        self.value = value
+        
+    @property
+    def value(self):
+        return self._value
+    
+    @value.setter
+    def value(self, new_value):
+        # try:
+        self._value = datetime.strptime(new_value, '%Y-%m-%d')
+        # except ValueError:
+        #     "wrong type of data, try like this '1990-10-26'"
+
+    def __str__(self):
+        return datetime.strftime(self.value, '%Y-%m-%d')
 
 class Phone(Field):
     def __init__(self, value):
